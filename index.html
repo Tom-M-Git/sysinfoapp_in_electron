@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SysInfoApp</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+</head>
+<body>
+    <div class="container">
+        <h1>SysInfoApp (macOS)</h1>
+        <div id="output"></div>
+    </div>
+
+
+    <script>
+        console.log(process);
+        console.log(process.getSystemMemoryInfo());
+        console.log(process.getProcessMemoryInfo());
+        console.log(process.getBlinkMemoryInfo());
+        console.log(process.getSystemVersion());
+        let output = `
+            <br>
+            <h2 class="page-header pb-1 border-bottom">App Version Data</h2>
+            <ul class="list-group">
+            <li class="list-group-item">Node: ${process.versions.node}</li>
+            <li class="list-group-item">Chrome: ${process.versions.chrome}</li>
+            <li class="list-group-item">Electron: ${process.versions.electron}</li>
+            </ul> 
+            <br>
+            <h2 class="page-header pb-1 border-bottom">System Specs</h2>
+            <ul class="list-group">
+                <li class="list-group-item">System Architecture: ${process.arch}</li>
+                <li class="list-group-item">System Version: ${process.getSystemVersion()}</li>    
+            </ul>
+            <br>
+            <h2 class="page-header pb-1 border-bottom">System Memory</h2>
+            <ul class="list-group">
+                <li class="list-group-item">Total: ${process.getSystemMemoryInfo().total}</li>
+                <li class="list-group-item">Free: ${process.getSystemMemoryInfo().free}</li>
+            </ul>
+            <br>
+            <h2 class="page-header pb-1 border-bottom">User Info</h2>
+            <ul class="list-group">
+                <li class="list-group-item">Username: ${process.env.USER}</li>
+                <li class="list-group-item">User Home Path: ${process.env.HOME}</li>
+            </ul>
+            `;
+
+        document.getElementById('output').innerHTML = output;
+    </script>
+    <script>
+        require('./renderer.js');
+    </script>
+</body>
+</html>
